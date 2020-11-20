@@ -1,6 +1,6 @@
 import logo from "./logo.jpg";
 import "./App.css";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 function App() {
   let [data, setData] = useState();
@@ -21,7 +21,6 @@ function Canvas(props) {
     let height = canvas.current.height;
     let ctx = canvas.current.getContext("2d");
     ctx.drawImage(image.current, 0, 0, width, height);
-    //let imageData = ctx.getImageData(0, 0, width, height);
     canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
   };
   return (
