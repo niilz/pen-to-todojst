@@ -1,18 +1,18 @@
-import logo from "./logo.jpg";
 import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
 
 function App() {
-  let [data, setData] = useState();
+  let [snapShotData, setSnapShotData] = useState();
+  let [imgBlob, setImgBlob] = useState();
 
-  const handleSnapShot = (imageData) => {
-    setData(imageData);
+  const handleSnapShot = (newSnapShotData) => {
+    setSnapShotData(newSnapShotData);
   };
 
   return (
     <div className="App">
-      <Canvas imageData={data} />
-      <button onClick={() => totodoist(data)}>Send image Data</button>
+      <Canvas imageData={snapShotData} onData={setImgBlob} />
+      <button onClick={() => totodoist(imgBlob)}>Send image Data</button>
       <Video onSnapShot={handleSnapShot} />
     </div>
   );
@@ -21,16 +21,14 @@ function App() {
 function Video(props) {
   let vid = useRef();
 
-  function startCamera() {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { width: 500, height: 500 },
-      })
-      .then((stream) => {
-        vid.current.srcObject = stream;
-      });
+  async function startCamera() {
+    let videoStream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 500, height: 500 },
+    });
+    vid.current.srcObject = videoStream;
   }
 
+  // Async does not work here...
   function getSnapShotData() {
     let videoTrack = vid.current.srcObject.getVideoTracks()[0];
     new ImageCapture(videoTrack)
@@ -51,10 +49,8 @@ function Video(props) {
 
 function Canvas(props) {
   const canvas = useRef();
-  // const image = useRef();
 
   const handleDraw = () => {
-    console.log("HANDLE-DRAAAW");
     if (!props.imageData) return;
     let ctx = canvas.current.getContext("2d");
     ctx.drawImage(
@@ -64,13 +60,12 @@ function Canvas(props) {
       canvas.current.width,
       canvas.current.height
     );
-    // canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
+    canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
   };
   useEffect(handleDraw);
   return (
     <>
       <canvas ref={canvas} width="500px" height="500px" />
-      {/*<img ref={image} className="App-logo" alt="logo" />*/}
     </>
   );
 }
@@ -84,7 +79,9 @@ function totodoist(imgData) {
     fetch("http://localhost:8080/to-do", {
       method: "POST",
       body: imgData64,
-    }).then(console.log);
+    }).then((backendResponse) =>
+      console.log("JS: translated snapShot! Response: ", backendResponse)
+    );
   };
 }
 
