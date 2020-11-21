@@ -1,61 +1,76 @@
 import logo from "./logo.jpg";
 import "./App.css";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function App() {
   let [data, setData] = useState();
+
+  const handleSnapShot = (imageData) => {
+    setData(imageData);
+  };
+
   return (
     <div className="App">
-      <Canvas onData={(imgData) => setData(imgData)} />
+      <Canvas imageData={data} />
       <button onClick={() => totodoist(data)}>Send image Data</button>
-      <Video />
+      <Video onSnapShot={handleSnapShot} />
     </div>
   );
 }
 
-function Video() {
+function Video(props) {
   let vid = useRef();
 
-  const handleVideo = () => {
+  function startCamera() {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 500, height: 500 } })
+      .getUserMedia({
+        video: { width: 500, height: 500 },
+      })
       .then((stream) => {
         vid.current.srcObject = stream;
-        console.log("stream", stream);
-        console.log("srcObject", vid.current.srcObject);
-        console.log("vid.current:", vid.current);
       });
-  };
+  }
+
+  function getSnapShotData() {
+    let videoTrack = vid.current.srcObject.getVideoTracks()[0];
+    new ImageCapture(videoTrack)
+      .grabFrame(videoTrack)
+      .then((frameData) => props.onSnapShot(frameData));
+  }
 
   return (
     <>
-      <video ref={vid} onLoad={() => console.log("LOOADED")} />
-      <button onClick={handleVideo}>start Video</button>
+      <video ref={vid} autoPlay />
+      <button onClick={startCamera}>Start Camera</button>
+      <button onClick={() => props.onSnapShot(getSnapShotData())}>
+        TakePhoto
+      </button>
     </>
   );
 }
 
 function Canvas(props) {
   const canvas = useRef();
-  const image = useRef();
+  // const image = useRef();
 
-  const draw = () => {
-    let width = canvas.current.width;
-    let height = canvas.current.height;
+  const handleDraw = () => {
+    console.log("HANDLE-DRAAAW");
+    if (!props.imageData) return;
     let ctx = canvas.current.getContext("2d");
-    ctx.drawImage(image.current, 0, 0, width, height);
-    canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
+    ctx.drawImage(
+      props.imageData,
+      0,
+      0,
+      canvas.current.width,
+      canvas.current.height
+    );
+    // canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
   };
+  useEffect(handleDraw);
   return (
     <>
-      <canvas width="500px" height="500px" ref={canvas} />
-      <img
-        ref={image}
-        src={logo}
-        onLoad={draw}
-        className="App-logo"
-        alt="logo"
-      />
+      <canvas ref={canvas} width="500px" height="500px" />
+      {/*<img ref={image} className="App-logo" alt="logo" />*/}
     </>
   );
 }
