@@ -8,7 +8,30 @@ function App() {
     <div className="App">
       <Canvas onData={(imgData) => setData(imgData)} />
       <button onClick={() => totodoist(data)}>Send image Data</button>
+      <Video />
     </div>
+  );
+}
+
+function Video() {
+  let vid = useRef();
+
+  const handleVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: { width: 500, height: 500 } })
+      .then((stream) => {
+        vid.current.srcObject = stream;
+        console.log("stream", stream);
+        console.log("srcObject", vid.current.srcObject);
+        console.log("vid.current:", vid.current);
+      });
+  };
+
+  return (
+    <>
+      <video ref={vid} onLoad={() => console.log("LOOADED")} />
+      <button onClick={handleVideo}>start Video</button>
+    </>
   );
 }
 
