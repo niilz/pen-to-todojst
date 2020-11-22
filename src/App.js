@@ -1,16 +1,21 @@
 import logo from "./logo.jpg";
 import "./App.css";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 function App() {
   let [imgBlob, setImgBlob] = useState();
+  let [initialInteraction, setInitialInteraction] = useState(true);
 
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
 
   return (
     <div className="App">
       <button onClick={() => totodoist(imgBlob)}>Send image Data</button>
-      <Video onSnapShot={handleSnapShot} />
+      <Video
+        onSnapShot={handleSnapShot}
+        initialInteraction={initialInteraction}
+        onInitialInteraction={() => setInitialInteraction(false)}
+      />
     </div>
   );
 }
@@ -47,6 +52,7 @@ function Video(props) {
       video: { width: 500, height: 500 },
     });
     vid.current.srcObject = videoStream;
+    props.onInitialInteraction();
   };
 
   const turnOffCamera = () => {
@@ -58,7 +64,7 @@ function Video(props) {
     <>
       <video ref={vid} autoPlay />
       <button onClick={startCamera}>
-        {props.isFirst ? "Enable Camera" : "Reset Photo"}
+        {props.initialInteraction ? "Enable Camera" : "Reset Photo"}
       </button>
       <button onClick={getSnapShotFrame}>TakePhoto</button>
       <button onClick={turnOffCamera}>OFF</button>
