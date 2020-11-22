@@ -11,14 +11,20 @@ function App() {
   return (
     <div className="App">
       <h1>
-        pen-to-todo<em>js</em>t
+        pen-to-todo
+        <strong>
+          <em>js</em>
+        </strong>
+        t
       </h1>
       <Video
         onSnapShot={handleSnapShot}
         firstAction={firstAction}
         onFirstAction={() => setFirstAction(false)}
       />
-      <button onClick={() => totodoist(imgBlob)}>add to list</button>
+      <button className="send-button" onClick={() => totodoist(imgBlob)}>
+        Add Items
+      </button>
     </div>
   );
 }
@@ -52,7 +58,7 @@ function Video(props) {
 
   const startCamera = async () => {
     let videoStream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 500, height: 500 },
+      video: { width: 3, height: 4 },
     });
     vid.current.srcObject = videoStream;
     props.onFirstAction();
@@ -64,7 +70,7 @@ function Video(props) {
   };
 
   return (
-    <>
+    <div className="video-area">
       <div className="outer-video-frame">
         <div className="video-frame">
           <div className="invisible-wrapper">
@@ -73,14 +79,14 @@ function Video(props) {
         </div>
       </div>
       <div className="video-frame-overlay" />
-      <div className="controlls">
+      <div className="controls">
         <button onClick={startCamera}>
           {props.firstAction ? "Enable Camera" : "Reset Photo"}
         </button>
-        <button onClick={getSnapShotFrame}>TakePhoto</button>
-        <button onClick={turnOffCamera}>OFF</button>
+        <button onClick={getSnapShotFrame}>Take Photo</button>
+        <button onClick={turnOffCamera}>Camera Off</button>
       </div>
-    </>
+    </div>
   );
 }
 

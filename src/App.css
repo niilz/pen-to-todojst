@@ -1,34 +1,42 @@
-* {
-}
 html {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  width: 100vw;
   background-color: #445;
 }
-
+body {
+  font-family: monospace;
+  font-size: 3vmin;
+  background-color: #445;
+}
 img {
   display: none;
 }
 
 .App {
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 
 h1 {
   color: pink;
+  margin: 3vh;
+}
+
+.video-area {
+  height: 90vh;
+  width: 80%;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .outer-video-frame {
   height: 75%;
-  max-height: 70vh;
-  width: 100%;
   max-width: 500px;
   border: 7px solid white;
   border-radius: 20px;
@@ -44,9 +52,9 @@ h1 {
 }
 
 .invisible-wrapper {
-  height: 103%;
-  width: 103%;
-  transform: rotate(-8deg) translateX(-1%) translateY(-2%);
+  height: 104%;
+  width: 105%;
+  transform: rotate(-8deg) translateX(-2%) translateY(-2%);
   overflow: hidden;
 }
 
@@ -57,6 +65,18 @@ video {
   transform: rotate(4deg);
 }
 
+.controls {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5vmin;
+}
+
 button {
+  font-family: inherit;
+  font-size: 17px;
   border: none;
+  width: 100px;
+  height: 7vh;
 }
