@@ -65,7 +65,14 @@ function Video(props) {
 
   return (
     <>
-      <video ref={vid} autoPlay />
+      <div className="outer-video-frame">
+        <div className="video-frame">
+          <div className="invisible-wrapper">
+            <video ref={vid} autoPlay />
+          </div>
+        </div>
+      </div>
+      <div className="video-frame-overlay" />
       <div className="controlls">
         <button onClick={startCamera}>
           {props.firstAction ? "Enable Camera" : "Reset Photo"}

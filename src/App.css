@@ -1,5 +1,4 @@
 * {
-  border: 1px solid pink;
 }
 html {
   height: 100%;
@@ -15,7 +14,49 @@ img {
 }
 
 .App {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+h1 {
+  color: pink;
+}
+
+.outer-video-frame {
+  height: 75%;
+  max-height: 70vh;
+  width: 100%;
+  max-width: 500px;
+  border: 7px solid white;
+  border-radius: 20px;
+  transform: rotate(-4deg);
+}
+
+.video-frame {
+  height: 96%;
+  border: 9px solid black;
+  border-radius: 20px;
+  transform: rotate(8deg);
+  overflow: hidden;
+}
+
+.invisible-wrapper {
+  height: 103%;
+  width: 103%;
+  transform: rotate(-8deg) translateX(-1%) translateY(-2%);
+  overflow: hidden;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  transform: rotate(4deg);
+}
+
+button {
+  border: none;
 }
