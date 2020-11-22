@@ -3,16 +3,12 @@ import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
 
 function App() {
-  let [snapShotData, setSnapShotData] = useState();
   let [imgBlob, setImgBlob] = useState();
 
-  const handleSnapShot = (newSnapShotData) => {
-    setSnapShotData(newSnapShotData);
-  };
+  const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
 
   return (
     <div className="App">
-      <Canvas imageData={snapShotData} onData={setImgBlob} />
       <button onClick={() => totodoist(imgBlob)}>Send image Data</button>
       <Video onSnapShot={handleSnapShot} />
     </div>
@@ -22,81 +18,50 @@ function App() {
 function Video(props) {
   let vid = useRef();
 
-  async function startCamera() {
-    let videoStream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 500, height: 500 },
-    });
-    vid.current.srcObject = videoStream;
-  }
-
-  function turnOffCamera() {
-    vid.current.srcObject.getVideoTracks()[0].stop();
-    vid.current.srcObject = null;
-  }
-
   // Async does not work here...
-  function getSnapShotData() {
+  const getSnapShotFrame = () => {
     let videoTrack = vid.current.srcObject.getVideoTracks()[0];
+    vid.current.pause();
     new ImageCapture(videoTrack)
       .grabFrame(videoTrack)
-      .then((frameData) => props.onSnapShot(frameData));
-  }
-  async function _getSnapShotData() {
-    let videoTrack = vid.current.srcObject.getVideoTracks()[0];
-    let imageCapture = new ImageCapture(videoTrack);
-    let frameData = await imageCapture.grabFrame(videoTrack);
-    props.onSnapShot(frameData);
-  }
+      .then((imageFrame) => getSnapShotDataFromFrame(imageFrame));
+  };
 
-  return (
-    <>
-      <video ref={vid} autoPlay />
-      <button onClick={startCamera}>Start Camera</button>
-      <button onClick={() => props.onSnapShot(getSnapShotData())}>
-        TakePhoto
-      </button>
-      <button onClick={turnOffCamera}>OFF</button>
-    </>
-  );
-}
-
-function Canvas(props) {
-  const canvas = useRef();
-
-  const handleDraw = () => {
-    if (!props.imageData) return;
+  const getSnapShotDataFromFrame = (snapShotFrame) => {
     let offscreenCanvas = new OffscreenCanvas(1000, 1000);
     let ctx = offscreenCanvas.getContext("2d");
     ctx.drawImage(
-      props.imageData,
+      snapShotFrame,
       0,
       0,
       offscreenCanvas.width,
       offscreenCanvas.height
     );
-    let imageBitmap = offscreenCanvas.transferToImageBitmap();
-    canvas.current
-      .getContext("bitmaprenderer")
-      .transferFromImageBitmap(imageBitmap);
-    canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
+    offscreenCanvas
+      .convertToBlob({ type: "image/jpeg" })
+      .then((blob) => props.onSnapShot(blob));
   };
 
-  const _handleDraw = () => {
-    if (!props.imageData) return;
-    let ctx = canvas.current.getContext("2d");
-    ctx.drawImage(
-      props.imageData,
-      0,
-      0,
-      canvas.current.width,
-      canvas.current.height
-    );
-    canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
+  const startCamera = async () => {
+    let videoStream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 500, height: 500 },
+    });
+    vid.current.srcObject = videoStream;
   };
-  useEffect(handleDraw);
+
+  const turnOffCamera = () => {
+    vid.current.srcObject.getVideoTracks()[0].stop();
+    vid.current.srcObject = null;
+  };
+
   return (
     <>
-      <canvas ref={canvas} width="500px" height="500px" />
+      <video ref={vid} autoPlay />
+      <button onClick={startCamera}>
+        {props.isFirst ? "Enable Camera" : "Reset Photo"}
+      </button>
+      <button onClick={getSnapShotFrame}>TakePhoto</button>
+      <button onClick={turnOffCamera}>OFF</button>
     </>
   );
 }
