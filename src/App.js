@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 
 function App() {
   let [imgBlob, setImgBlob] = useState();
-  let [initialInteraction, setInitialInteraction] = useState(true);
+  let [firstAction, setFirstAction] = useState(true);
 
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
 
@@ -13,8 +13,8 @@ function App() {
       <button onClick={() => totodoist(imgBlob)}>Send image Data</button>
       <Video
         onSnapShot={handleSnapShot}
-        initialInteraction={initialInteraction}
-        onInitialInteraction={() => setInitialInteraction(false)}
+        firstAction={firstAction}
+        onFirstAction={() => setFirstAction(false)}
       />
     </div>
   );
@@ -52,7 +52,7 @@ function Video(props) {
       video: { width: 500, height: 500 },
     });
     vid.current.srcObject = videoStream;
-    props.onInitialInteraction();
+    props.onFirstAction();
   };
 
   const turnOffCamera = () => {
@@ -64,7 +64,7 @@ function Video(props) {
     <>
       <video ref={vid} autoPlay />
       <button onClick={startCamera}>
-        {props.initialInteraction ? "Enable Camera" : "Reset Photo"}
+        {props.firstAction ? "Enable Camera" : "Reset Photo"}
       </button>
       <button onClick={getSnapShotFrame}>TakePhoto</button>
       <button onClick={turnOffCamera}>OFF</button>
