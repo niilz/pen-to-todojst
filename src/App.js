@@ -10,12 +10,15 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => totodoist(imgBlob)}>Send image Data</button>
+      <h1>
+        pen-to-todo<em>js</em>t
+      </h1>
       <Video
         onSnapShot={handleSnapShot}
         firstAction={firstAction}
         onFirstAction={() => setFirstAction(false)}
       />
+      <button onClick={() => totodoist(imgBlob)}>add to list</button>
     </div>
   );
 }
@@ -63,11 +66,13 @@ function Video(props) {
   return (
     <>
       <video ref={vid} autoPlay />
-      <button onClick={startCamera}>
-        {props.firstAction ? "Enable Camera" : "Reset Photo"}
-      </button>
-      <button onClick={getSnapShotFrame}>TakePhoto</button>
-      <button onClick={turnOffCamera}>OFF</button>
+      <div className="controlls">
+        <button onClick={startCamera}>
+          {props.firstAction ? "Enable Camera" : "Reset Photo"}
+        </button>
+        <button onClick={getSnapShotFrame}>TakePhoto</button>
+        <button onClick={turnOffCamera}>OFF</button>
+      </div>
     </>
   );
 }
@@ -77,13 +82,12 @@ function totodoist(imgData) {
   r.readAsDataURL(imgData);
   r.onloadend = () => {
     let imgData64 = r.result.replace("data:image/jpeg;base64,", "");
-    console.log(imgData64);
     fetch("http://localhost:8080/to-do", {
       method: "POST",
       body: imgData64,
-    }).then((backendResponse) =>
-      console.log("JS: translated snapShot! Response: ", backendResponse)
-    );
+    })
+      .then((backendResponse) => backendResponse.text())
+      .then((body) => console.log("ResponseBody:", body));
   };
 }
 
