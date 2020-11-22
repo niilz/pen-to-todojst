@@ -1,3 +1,4 @@
+import logo from "./logo.jpg";
 import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -28,12 +29,23 @@ function Video(props) {
     vid.current.srcObject = videoStream;
   }
 
+  function turnOffCamera() {
+    vid.current.srcObject.getVideoTracks()[0].stop();
+    vid.current.srcObject = null;
+  }
+
   // Async does not work here...
   function getSnapShotData() {
     let videoTrack = vid.current.srcObject.getVideoTracks()[0];
     new ImageCapture(videoTrack)
       .grabFrame(videoTrack)
       .then((frameData) => props.onSnapShot(frameData));
+  }
+  async function _getSnapShotData() {
+    let videoTrack = vid.current.srcObject.getVideoTracks()[0];
+    let imageCapture = new ImageCapture(videoTrack);
+    let frameData = await imageCapture.grabFrame(videoTrack);
+    props.onSnapShot(frameData);
   }
 
   return (
@@ -43,6 +55,7 @@ function Video(props) {
       <button onClick={() => props.onSnapShot(getSnapShotData())}>
         TakePhoto
       </button>
+      <button onClick={turnOffCamera}>OFF</button>
     </>
   );
 }
@@ -51,6 +64,24 @@ function Canvas(props) {
   const canvas = useRef();
 
   const handleDraw = () => {
+    if (!props.imageData) return;
+    let offscreenCanvas = new OffscreenCanvas(1000, 1000);
+    let ctx = offscreenCanvas.getContext("2d");
+    ctx.drawImage(
+      props.imageData,
+      0,
+      0,
+      offscreenCanvas.width,
+      offscreenCanvas.height
+    );
+    let imageBitmap = offscreenCanvas.transferToImageBitmap();
+    canvas.current
+      .getContext("bitmaprenderer")
+      .transferFromImageBitmap(imageBitmap);
+    canvas.current.toBlob((blob) => props.onData(blob), "image/jpeg");
+  };
+
+  const _handleDraw = () => {
     if (!props.imageData) return;
     let ctx = canvas.current.getContext("2d");
     ctx.drawImage(
