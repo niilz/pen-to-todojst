@@ -26,53 +26,6 @@ h1 {
   margin: 3vh;
 }
 
-.video-area {
-  height: 90vh;
-  width: 80%;
-  max-width: 330px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.outer-video-frame {
-  height: 75%;
-  max-width: 500px;
-  border: 7px solid white;
-  border-radius: 20px;
-  transform: rotate(-4deg);
-}
-
-.video-frame {
-  height: 96%;
-  border: 9px solid black;
-  border-radius: 20px;
-  transform: rotate(8deg);
-  overflow: hidden;
-}
-
-.invisible-wrapper {
-  height: 104%;
-  width: 105%;
-  transform: rotate(-8deg) translateX(-2%) translateY(-2%);
-  overflow: hidden;
-}
-
-video {
-  height: 100%;
-  width: 100%;
-  max-width: 500px;
-  transform: rotate(4deg);
-}
-
-.controls {
-  max-width: 500px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 5vmin;
-}
-
 button {
   font-family: inherit;
   font-size: 17px;
