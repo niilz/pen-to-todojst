@@ -19,9 +19,9 @@ function App() {
         firstAction={firstAction}
         onFirstAction={() => setFirstAction(false)}
       />
-      <button className="send-button" onClick={() => totodoist(imgBlob)}>
-        Add Items
-      </button>
+      <div className="button-container">
+        <button onClick={() => totodoist(imgBlob)}>Add Items</button>
+      </div>
     </div>
   );
 }
