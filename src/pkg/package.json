@@ -1,0 +1,15 @@
+{
+  "name": "pen-to-todoist",
+  "collaborators": [
+    "nilSinger <niilz@outlook.de>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "pen_to_todoist_bg.wasm",
+    "pen_to_todoist.js",
+    "pen_to_todoist.d.ts"
+  ],
+  "module": "pen_to_todoist.js",
+  "types": "pen_to_todoist.d.ts",
+  "sideEffects": false
+}
