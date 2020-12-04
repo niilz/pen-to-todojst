@@ -30,7 +30,7 @@ function Video(props) {
 
   const startCamera = async () => {
     let videoStream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 3, height: 4 },
+      video: { width: 7, height: 11 },
     });
     vid.current.srcObject = videoStream;
     props.onFirstAction();
