@@ -13,7 +13,7 @@ let contentToCache = [
   "/src/components/Video.css",
   "/pkg/pen_to_todoist.js",
   "/pkg/pen_to_todoist_bg.wasm",
-  "/secrets/hand-to-list-f9b3c1e16065.json",
+  "/secrets/hand-to-list-key.json",
   "/secrets/todoist-token.json",
 ];
 
