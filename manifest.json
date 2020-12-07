@@ -1,7 +1,7 @@
 {
   "name": "pen to todoist",
   "short_name": "penTodoist",
-  "start_url": "./index.html",
+  "start_url": "./public/offline_index.html",
   "display": "standalone",
   "background_color": "#fff",
   "description": "Digitizing handwritten shopping lists",

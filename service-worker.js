@@ -34,7 +34,7 @@ self.addEventListener("fetch", (e) => {
             `[Service Worker] Caching new resource: ${e.request.url}`
           );
           cache.put(e.request, response.clone());
-          return resposne;
+          return response;
         })
       );
     })
