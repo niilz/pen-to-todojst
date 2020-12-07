@@ -3,13 +3,16 @@
 let cacheName = "pen-to-todoist-pwa-v1";
 let contentToCache = [
   "/index.html",
+  "/public/offline_index.html",
+  "/babel/index.js",
   "/babel/utils.js",
   "/babel/App.js",
   "/src/App.css",
-  "/babel/index.js",
   "/src/index.css",
   "/src/components/Video.js",
   "/src/components/Video.css",
+  "/pkg/pen_to_todoist.js",
+  "/pkg/pen_to_todoist_bg.wasm",
 ];
 
 self.addEventListener("install", (e) => {
@@ -29,11 +32,13 @@ self.addEventListener("fetch", (e) => {
       return (
         r ||
         fetch(e.request).then(async (response) => {
-          let cache = await caches.open(cacheName);
-          console.log(
-            `[Service Worker] Caching new resource: ${e.request.url}`
-          );
-          cache.put(e.request, response.clone());
+          if (e.request.method === "GET") {
+            let cache = await caches.open(cacheName);
+            console.log(
+              `[Service Worker] Caching new resource: ${e.request.url}`
+            );
+            cache.put(e.request, response.clone());
+          }
           return response;
         })
       );
