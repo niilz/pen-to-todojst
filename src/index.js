@@ -1,6 +1,6 @@
 // import "./index.css";
 import App from "./App.js";
-//import { registerServiceWorker } from "./sw-register.js";
+import { registerServiceWorker } from "./sw-register.js";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -9,4 +9,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//registerServiceWorker();
+registerServiceWorker();

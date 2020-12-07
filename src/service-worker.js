@@ -2,13 +2,13 @@
 
 let cacheName = "pen-to-todoist-pwa-v1";
 let contentToCache = [
-  "src/utils.js",
-  "src/App.js",
-  "src/App.css",
-  "src/index.js",
-  "src/index.css",
-  "src/components/Video.js",
-  "src/components/Video.css",
+  "/babel/utils.js",
+  "/babel/App.js",
+  "/src/App.css",
+  "/babel/index.js",
+  "/src/index.css",
+  "/src/components/Video.js",
+  "/src/components/Video.css",
 ];
 
 self.addEventListener("install", (e) => {

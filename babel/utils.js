@@ -1,4 +1,4 @@
-import init, { todoist_from_handwriting } from "./pkg/pen_to_todoist.js";
+import init, { todoist_from_handwriting } from "../pkg/pen_to_todoist.js";
 
 export function totodoist(imgData) {
   var r = new FileReader();

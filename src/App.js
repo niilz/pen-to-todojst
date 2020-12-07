@@ -1,5 +1,5 @@
 // import "./App.css";
-import Video from "./src/components/Video.js";
+import Video from "../src/components/Video.js";
 import { totodoist } from "./utils.js";
 
 function App() {
