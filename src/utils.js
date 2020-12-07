@@ -10,8 +10,8 @@ export function totodoist(imgData) {
     init().then((_) =>
       todoist_from_handwriting(
         imgData64,
-        JSON.stringify(credentials),
-        todoistToken.todoist_token
+        todoistToken.todoist_token,
+        JSON.stringify(credentials)
       )
     );
   };

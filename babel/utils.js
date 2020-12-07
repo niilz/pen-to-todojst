@@ -1,4 +1,6 @@
 import init, { todoist_from_handwriting } from "../pkg/pen_to_todoist.js";
+import credentials from "../secrets/hand-to-list-key.js";
+import todoistToken from "../secrets/todoist-token.js";
 
 export function totodoist(imgData) {
   var r = new FileReader();
@@ -6,12 +8,7 @@ export function totodoist(imgData) {
   r.onloadend = function () {
     var imgData64 = r.result.replace("data:image/jpeg;base64,", "");
     init().then(function (_) {
-      return todoist_from_handwriting(imgData64);
+      return todoist_from_handwriting(imgData64, todoistToken.todoist_token, JSON.stringify(credentials));
     });
-    /*
-    import("pen-to-todoist").then((module) =>
-      module.todoist_from_handwriting(imgData64)
-    );
-    */
   };
 }
