@@ -1,8 +1,5 @@
 /* eslint-disable no-restricted-globals */
 
-let unused = self.__WB_MANIFEST;
-//self.importScripts("./utils");
-
 let cacheName = "pen-to-todoist-pwa-v1";
 let contentToCache = [
   "src/utils.js",

@@ -1,11 +1,10 @@
-import "./App.css";
-import Video from "./components/Video";
-import React, { useState } from "react";
-import { totodoist } from "./utils";
+// import "./App.css";
+import Video from "./src/components/Video.js";
+import { totodoist } from "./utils.js";
 
 function App() {
-  let [imgBlob, setImgBlob] = useState();
-  let [firstAction, setFirstAction] = useState(true);
+  let [imgBlob, setImgBlob] = React.useState();
+  let [firstAction, setFirstAction] = React.useState(true);
 
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
 
