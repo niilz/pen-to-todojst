@@ -2,6 +2,7 @@
 
 let cacheName = "pen-to-todoist-pwa-v1";
 let contentToCache = [
+  "/index.html",
   "/babel/utils.js",
   "/babel/App.js",
   "/src/App.css",

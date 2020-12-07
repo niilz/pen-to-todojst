@@ -2,7 +2,7 @@
 
 export function registerServiceWorker() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../src/service-worker.js").then(function () {
+    navigator.serviceWorker.register("/service-worker.js").then(function () {
       return console.log("registered SW");
     });
   }
