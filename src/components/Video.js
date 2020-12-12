@@ -1,5 +1,3 @@
-//import "./Video.css";
-
 function Video(props) {
   let vid = React.useRef();
 
@@ -29,9 +27,12 @@ function Video(props) {
 
   const startCamera = async () => {
     let videoStream = await navigator.mediaDevices.getUserMedia({
+      // width and height are inverted because on Android
+      // the orientation seems to be inverted aswell...
+      // TODO: Detect device and handle width/height accordingly
       video: {
-        width: 7,
-        height: 11,
+        width: 1720,
+        height: 1180,
         facingMode: "environment",
       },
     });

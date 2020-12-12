@@ -8,4 +8,4 @@ ReactDOM.render(React.createElement(
   React.createElement(App, null)
 ), document.getElementById("root"));
 
-registerServiceWorker();
+//registerServiceWorker();
