@@ -19,9 +19,7 @@ function App() {
         onFirstAction={() => setFirstAction(false)}
       />
       <div className="button-container">
-        <button onClick={() => totodoist(imgBlob, onDone).then()}>
-          Add Items
-        </button>
+        <button onClick={() => totodoist(imgBlob, onDone)}>Add Items</button>
       </div>
     </div>
   );

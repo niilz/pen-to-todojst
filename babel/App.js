@@ -48,7 +48,7 @@ function App() {
       React.createElement(
         "button",
         { onClick: function onClick() {
-            return totodoist(imgBlob, onDone).then();
+            return totodoist(imgBlob, onDone);
           } },
         "Add Items"
       )
