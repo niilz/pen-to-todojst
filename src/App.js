@@ -1,12 +1,12 @@
-// import "./App.css";
 import Video from "../src/components/Video.js";
-import { totodoist } from "./utils.js";
+import { totodoist } from "../src/utils.js";
 
 function App() {
   let [imgBlob, setImgBlob] = React.useState();
   let [firstAction, setFirstAction] = React.useState(true);
 
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
+  const onDone = (listId) => console.log("List-Id:", listId);
 
   return (
     <div className="App">
@@ -19,7 +19,9 @@ function App() {
         onFirstAction={() => setFirstAction(false)}
       />
       <div className="button-container">
-        <button onClick={() => totodoist(imgBlob)}>Add Items</button>
+        <button onClick={() => totodoist(imgBlob, onDone).then()}>
+          Add Items
+        </button>
       </div>
     </div>
   );
