@@ -15,6 +15,11 @@ let contentToCache = [
   "/pkg/pen_to_todoist_bg.wasm",
   "/secrets/hand-to-list-key.js",
   "/secrets/todoist-token.js",
+  "./public/favicon.ico",
+  "./public/android-chrome-192x192.png",
+  "./public/android-chrome-512x512.png",
+  "./public/favicon-16x16.png",
+  "./public/favicon-32x32.png",
 ];
 
 self.addEventListener("install", (e) => {
