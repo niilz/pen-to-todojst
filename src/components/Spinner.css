@@ -10,7 +10,13 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(rgb(0, 180, 240), rgb(250, 120, 30));
+  border: solid 20px transparent;
+  background: radial-gradient(
+    transparent,
+    transparent,
+    rgb(0, 180, 240),
+    rgb(250, 120, 30)
+  );
   animation: spin 2s infinite linear;
 }
 
