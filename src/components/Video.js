@@ -1,4 +1,4 @@
-function Video(props) {
+export function Video(props) {
   let vid = React.useRef();
 
   // Async does not work here...
@@ -45,40 +45,8 @@ function Video(props) {
     vid.current.srcObject = null;
   };
 
-  return React.createElement(
-    "div",
-    { className: "video-area" },
-    React.createElement(
-      "div",
-      { className: "outer-video-frame" },
-      React.createElement(
-        "div",
-        { className: "video-frame" },
-        React.createElement(
-          "div",
-          { className: "invisible-wrapper" },
-          React.createElement("video", { ref: vid, autoPlay: true })
-        )
-      )
-    ),
-    React.createElement("div", { className: "video-frame-overlay" }),
-    React.createElement(
-      "div",
-      { className: "controls" },
-      React.createElement(
-        "button",
-        { onClick: startCamera },
-        props.firstAction ? "Enable Camera" : "Reset Photo"
-      ),
-      React.createElement(
-        "button",
-        { onClick: getSnapShotFrame },
-        "Take Photo"
-      ),
-      React.createElement("button", { onClick: turnOffCamera }, "Camera Off")
-    )
-  );
-  /*
+  let [isLoading, setIsLoading] = React.useState(false);
+
   return (
     <div className="video-area">
       <div className="outer-video-frame">
@@ -98,7 +66,6 @@ function Video(props) {
       </div>
     </div>
   );
-  */
 }
 
 export default Video;
