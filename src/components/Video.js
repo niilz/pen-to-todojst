@@ -1,3 +1,5 @@
+import Overlay from "./Overlay.js";
+
 export function Video(props) {
   let vid = React.useRef();
 
@@ -45,14 +47,13 @@ export function Video(props) {
     vid.current.srcObject = null;
   };
 
-  let [isLoading, setIsLoading] = React.useState(false);
-
   return (
     <div className="video-area">
       <div className="outer-video-frame">
         <div className="video-frame">
           <div className="invisible-wrapper">
             <video ref={vid} autoPlay />
+            <Overlay active={props.isLoading} />
           </div>
         </div>
       </div>

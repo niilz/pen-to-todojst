@@ -24,6 +24,7 @@
 }
 
 .invisible-wrapper {
+  position: relative;
   height: 104%;
   width: 105%;
   transform: rotate(-8deg) translateX(-2%) translateY(-2%);
@@ -31,6 +32,7 @@
 }
 
 video {
+  position: absolute;
   height: 100%;
   width: 100%;
   max-width: 500px;

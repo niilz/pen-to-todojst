@@ -1,8 +1,8 @@
 import Spinner from "./Spinner.js";
 
-function Overlay() {
+function Overlay(props) {
   return (
-    <div className="overlay">
+    <div className={`overlay ${props.active ? "" : "hidden"}`}>
       <Spinner />
     </div>
   );

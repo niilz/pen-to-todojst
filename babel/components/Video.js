@@ -1,3 +1,4 @@
+import Overlay from "./Overlay.js";
 export function Video(props) {
   let vid = React.useRef(); // Async does not work here...
 
@@ -36,7 +37,6 @@ export function Video(props) {
     vid.current.srcObject = null;
   };
 
-  let [isLoading, setIsLoading] = React.useState(false);
   return /*#__PURE__*/React.createElement("div", {
     className: "video-area"
   }, /*#__PURE__*/React.createElement("div", {
@@ -48,6 +48,8 @@ export function Video(props) {
   }, /*#__PURE__*/React.createElement("video", {
     ref: vid,
     autoPlay: true
+  }), /*#__PURE__*/React.createElement(Overlay, {
+    active: props.isLoading
   })))), /*#__PURE__*/React.createElement("div", {
     className: "video-frame-overlay"
   }), /*#__PURE__*/React.createElement("div", {

@@ -1,0 +1,21 @@
+.spinner-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(rgb(0, 180, 240), rgb(250, 120, 30));
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(359deg);
+  }
+}

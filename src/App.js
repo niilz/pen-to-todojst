@@ -1,10 +1,10 @@
 import Video from "./components/Video.js";
 import { totodoist } from "./utils.js";
-import Overlay from "./components/Overlay.js";
 
 function App() {
-  let [imgBlob, setImgBlob] = React.useState();
-  let [firstAction, setFirstAction] = React.useState(true);
+  const [imgBlob, setImgBlob] = React.useState();
+  const [firstAction, setFirstAction] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
   const onAddItems = () => {
@@ -22,6 +22,7 @@ function App() {
         onSnapShot={handleSnapShot}
         firstAction={firstAction}
         onFirstAction={() => setFirstAction(false)}
+        isLoading={isLoading}
       />
       <div className="button-container">
         <button onClick={onAddItems}>Add Items</button>

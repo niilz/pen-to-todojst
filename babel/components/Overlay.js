@@ -1,8 +1,8 @@
 import Spinner from "./Spinner.js";
 
-function Overlay() {
+function Overlay(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: "overlay"
+    className: `overlay ${props.active ? "" : "hidden"}`
   }, /*#__PURE__*/React.createElement(Spinner, null));
 }
 
