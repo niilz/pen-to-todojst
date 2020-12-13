@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-
 let cacheName = "pen-to-todoist-pwa-v1";
 let contentToCache = [
   "/",
@@ -10,9 +8,10 @@ let contentToCache = [
   "/src/App.css",
   "/babel/components/Video.js",
   "/src/components/Video.css",
-  "/babel/compontents/Overlay.js",
-  "/src/compontents/Overlay.css",
-  "/babel/compontents/Spinner.js",
+  "/babel/components/Overlay.js",
+  "/src/components/Overlay.css",
+  "/babel/components/Spinner.js",
+  "/src/components/Spinner.css",
   "/babel/utils.js",
   "/pkg/pen_to_todoist.js",
   "/pkg/pen_to_todoist_bg.wasm",
