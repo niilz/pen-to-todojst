@@ -1,5 +1,5 @@
 {
-  "name": "pen-to-todojst-react",
+  "name": "pen-to-todojst",
   "version": "1.0.0",
   "description": "Converts handwritten Shopping-List to actual Shoppint-Todo-List on Todoist",
   "main": "index.js",
