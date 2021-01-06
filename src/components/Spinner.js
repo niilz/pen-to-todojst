@@ -1,7 +1,12 @@
-function Spinner() {
+function Spinner(props) {
   return (
     <div className="spinner-wrapper">
-      <div className="spinner" />
+      <div
+        onClick={props.removeOverlay}
+        className={`spinner ${props.shouldSpin ? "spin" : ""}`}
+      >
+        <p>{props.listId}</p>
+      </div>
     </div>
   );
 }
