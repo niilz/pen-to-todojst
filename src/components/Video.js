@@ -1,4 +1,5 @@
 import Overlay from "./Overlay.js";
+import Spinner from "./Spinner.js";
 
 export function Video(props) {
   let vid = React.useRef();
@@ -53,7 +54,7 @@ export function Video(props) {
         <div className="video-frame">
           <div className="invisible-wrapper">
             <video ref={vid} autoPlay />
-            <Overlay active={props.isLoading} />
+            <Overlay active={props.isLoading} feature={<Spinner />} />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import Overlay from "./Overlay.js";
+import Spinner from "./Spinner.js";
 export function Video(props) {
   let vid = React.useRef(); // Async does not work here...
 
@@ -49,7 +50,8 @@ export function Video(props) {
     ref: vid,
     autoPlay: true
   }), /*#__PURE__*/React.createElement(Overlay, {
-    active: props.isLoading
+    active: props.isLoading,
+    feature: /*#__PURE__*/React.createElement(Spinner, null)
   })))), /*#__PURE__*/React.createElement("div", {
     className: "video-frame-overlay"
   }), /*#__PURE__*/React.createElement("div", {
