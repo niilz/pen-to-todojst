@@ -12,9 +12,6 @@
   border-radius: 50%;
   border: solid 20px transparent;
   background: radial-gradient(transparent, transparent, #445, pink);
-}
-
-.spin {
   animation: spin 2s infinite linear;
 }
 
