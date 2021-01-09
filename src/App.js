@@ -6,20 +6,27 @@ import Spinner from "./components/Spinner.js";
 
 function App() {
   const [imgBlob, setImgBlob] = React.useState();
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(undefined);
+  const [isTransmitting, setIsTransmitting] = React.useState(false);
   const [optionsOpen, setOptionsOpen] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
 
   // Initialize wasm-module (only once)
   React.useEffect(() => {
-    init().then(() => {
-      initProjects();
-    });
+    init().then(() => console.log("Wasm module has been initialized"));
   }, []);
 
-  const initProjects = () => {
+  const openOpentions = () => {
+    if (!imgBlob) return;
+    setIsLoading(true);
+    loadProjects();
+    setIsLoading(false);
+    setOptionsOpen(true);
+  };
+
+  const loadProjects = () => {
     getAllProjects().then((projs) => {
-      setIsLoading(false);
+      setIsTransmitting(false);
       setProjects(projs);
     });
   };
@@ -27,27 +34,35 @@ function App() {
   const handleSnapShot = (newSnapShotData) => setImgBlob(newSnapShotData);
   const onConfirmedProject = (listId) => {
     setOptionsOpen(false);
-    setIsLoading(true);
+    setIsTransmitting(true);
     fromHandwriting(listId, imgBlob, onDone);
   };
-  const onDone = (_listId) => setIsLoading(false);
+  const onDone = (_listId) => setIsTransmitting(false);
 
-  const feature =
-    projects.length > 0 ? (
-      <ProjectList projects={projects} onConfirm={onConfirmedProject} />
-    ) : (
-      <Spinner />
-    );
+  const feature = isLoading ? (
+    <Spinner />
+  ) : (
+    <ProjectList projects={projects} onConfirm={onConfirmedProject} />
+  );
 
   return (
     <div className="App">
       <h1>
         pen-to-todo<em>js</em>t
       </h1>
-      <Video onSnapShot={handleSnapShot} isLoading={isLoading} />
+      <Video
+        onSnapShot={handleSnapShot}
+        isTransmitting={isTransmitting}
+        resetImgData={() => setImgBlob(null)}
+      />
       <Overlay active={optionsOpen}>{feature}</Overlay>
       <div className="add-button">
-        <button onClick={() => setOptionsOpen(true)}>Add Items</button>
+        <button
+          className={`${imgBlob ? "" : "disabled"}`}
+          onClick={openOpentions}
+        >
+          Add Items
+        </button>
       </div>
     </div>
   );

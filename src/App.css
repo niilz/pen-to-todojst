@@ -36,3 +36,7 @@ button {
   width: 100px;
   height: 7vh;
 }
+
+.disabled {
+  color: grey;
+}

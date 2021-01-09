@@ -34,6 +34,7 @@ export function Video(props) {
   };
 
   const turnOnCamera = async () => {
+    props.resetImgData();
     let videoStream = await navigator.mediaDevices.getUserMedia({
       // width and height are inverted because on Android
       // the orientation seems to be inverted aswell...
@@ -54,6 +55,7 @@ export function Video(props) {
     vid.current.srcObject = null;
     setCameraEnabled(false);
     setShowsSnapshot(false);
+    props.resetImgData();
   };
 
   return (
@@ -62,7 +64,7 @@ export function Video(props) {
         <div className="video-frame">
           <div className="invisible-wrapper">
             <video ref={vid} autoPlay />
-            <Overlay active={props.isLoading}>
+            <Overlay active={props.isTransmitting}>
               <Spinner />
             </Overlay>
             <Overlay active={!isCameraEnabled}>
