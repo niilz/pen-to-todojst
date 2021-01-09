@@ -2,4 +2,6 @@
   transform: rotate(4deg);
   text-align: center;
   color: var(--secondary-color);
+  font-size: min(150%, 22px);
+  margin: min(4vmin, 22px);
 }
