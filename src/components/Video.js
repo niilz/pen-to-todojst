@@ -1,11 +1,15 @@
 import Overlay from "./Overlay.js";
 import Spinner from "./Spinner.js";
+import Warning from "./Warning.js";
 
 export function Video(props) {
   let vid = React.useRef();
+  let [isCameraEnabled, setCameraEnabled] = React.useState(false);
+  let [showsSnapshot, setShowsSnapshot] = React.useState(false);
 
   // Async does not work here...
   const getSnapShotFrame = () => {
+    if (!isCameraEnabled) return;
     let videoTrack = vid.current.srcObject.getVideoTracks()[0];
     vid.current.pause();
     new ImageCapture(videoTrack)
@@ -23,12 +27,13 @@ export function Video(props) {
       offscreenCanvas.width,
       offscreenCanvas.height
     );
-    offscreenCanvas
-      .convertToBlob({ type: "image/jpeg" })
-      .then((blob) => props.onSnapShot(blob));
+    offscreenCanvas.convertToBlob({ type: "image/jpeg" }).then((blob) => {
+      props.onSnapShot(blob);
+      if (blob != null) setShowsSnapshot(true);
+    });
   };
 
-  const startCamera = async () => {
+  const turnOnCamera = async () => {
     let videoStream = await navigator.mediaDevices.getUserMedia({
       // width and height are inverted because on Android
       // the orientation seems to be inverted aswell...
@@ -40,12 +45,15 @@ export function Video(props) {
       },
     });
     vid.current.srcObject = videoStream;
-    props.onFirstAction();
+    setCameraEnabled(true);
+    setShowsSnapshot(false);
   };
 
   const turnOffCamera = () => {
     vid.current.srcObject.getVideoTracks()[0].stop();
     vid.current.srcObject = null;
+    setCameraEnabled(false);
+    setShowsSnapshot(false);
   };
 
   return (
@@ -54,17 +62,27 @@ export function Video(props) {
         <div className="video-frame">
           <div className="invisible-wrapper">
             <video ref={vid} autoPlay />
-            <Overlay active={props.isLoading} feature={<Spinner />} />
+            <Overlay active={props.isLoading}>
+              <Spinner />
+            </Overlay>
+            <Overlay active={!isCameraEnabled}>
+              <Warning text="Enable Camera before taking a photo" />
+            </Overlay>
           </div>
         </div>
       </div>
       <div className="video-frame-overlay" />
       <div className="controls">
-        <button onClick={startCamera}>
-          {props.firstAction ? "Enable Camera" : "Reset Photo"}
+        <button
+          onClick={showsSnapshot ? turnOnCamera : () => {}}
+          className={`${showsSnapshot ? "" : "disabled"}`}
+        >
+          Reset Camera
         </button>
         <button onClick={getSnapShotFrame}>Take Photo</button>
-        <button onClick={turnOffCamera}>Camera Off</button>
+        <button onClick={isCameraEnabled ? turnOffCamera : turnOnCamera}>
+          {`Turn ${isCameraEnabled ? "OFF" : "ON"} Camera`}
+        </button>
       </div>
     </div>
   );

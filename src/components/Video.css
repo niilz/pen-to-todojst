@@ -1,5 +1,5 @@
 .video-area {
-  height: 90vh;
+  height: 100%;
   width: 80%;
   max-width: 330px;
   display: flex;
@@ -45,4 +45,12 @@ video {
   display: flex;
   justify-content: space-around;
   margin-top: 5vmin;
+}
+
+.add-button {
+  margin-bottom: 3vh;
+}
+
+.disabled {
+  color: grey;
 }

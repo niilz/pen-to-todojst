@@ -6,7 +6,6 @@ import Spinner from "./components/Spinner.js";
 
 function App() {
   const [imgBlob, setImgBlob] = React.useState();
-  const [firstAction, setFirstAction] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
   const [optionsOpen, setOptionsOpen] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
@@ -45,14 +44,9 @@ function App() {
       <h1>
         pen-to-todo<em>js</em>t
       </h1>
-      <Video
-        onSnapShot={handleSnapShot}
-        firstAction={firstAction}
-        onFirstAction={() => setFirstAction(false)}
-        isLoading={isLoading}
-      />
-      <Overlay active={optionsOpen} feature={feature} />
-      <div className="button-container">
+      <Video onSnapShot={handleSnapShot} isLoading={isLoading} />
+      <Overlay active={optionsOpen}>{feature}</Overlay>
+      <div className="add-button">
         <button onClick={() => setOptionsOpen(true)}>Add Items</button>
       </div>
     </div>

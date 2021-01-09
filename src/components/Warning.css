@@ -1,0 +1,5 @@
+.warning {
+  transform: rotate(4deg);
+  text-align: center;
+  color: var(--secondary-color);
+}

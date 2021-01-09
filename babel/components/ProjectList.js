@@ -14,6 +14,6 @@ export default ProjectList;
 function assembleList(projects) {
   return [...projects, {
     id: 0,
-    name: "New Shopping List"
+    name: "+ Shopping List"
   }];
 }
