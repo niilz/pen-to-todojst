@@ -9,5 +9,5 @@ App that converts handwritten shopping-list into todoist-task list
 ## How to use
 
 - Ensure that a compiled wasm-pack-module (target web without webpack) named `pkg` is placed in the root folder.
-- Beause there is no webpack, React portions are compiled with babel. To do so run `npx babel --watch src --out-dir ./babel` in the root folde.
-- Notice the react-dependecies and the babel-config in the `package.json`. Without those babel will try to cross-compile than necessary.
+- Beause there is no webpack, React portions are compiled with babel. To do so run `npx babel --watch src --out-dir ./babel` ian the root folder.
+- Notice the react-dependecies and the babel-config in the `package.json`. Without those babel will try to cross-compile more than necessary.
