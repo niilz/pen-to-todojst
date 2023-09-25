@@ -1,0 +1,10 @@
+.Checkbox {
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+}
+
+.Checkbox input {
+  width: 20px;
+  height: 20px;
+}

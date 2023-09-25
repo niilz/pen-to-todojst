@@ -3,6 +3,7 @@ import { init, fromHandwriting, getAllProjects } from "./utils.js";
 import Overlay from "./components/Overlay.js";
 import ProjectList from "./components/ProjectList.js";
 import Spinner from "./components/Spinner.js";
+import Checkbox from "./components/Checkbox.js";
 
 function App() {
   const [imgBlob, setImgBlob] = React.useState();
@@ -10,6 +11,7 @@ function App() {
   const [isTransmitting, setIsTransmitting] = React.useState(false);
   const [optionsOpen, setOptionsOpen] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
+  const [largestItemOnly, setLargestItemOnly] = React.useState(false);
 
   // Initialize wasm-module (only once)
   React.useEffect(() => {
@@ -35,7 +37,7 @@ function App() {
   const onConfirmedProject = (listId) => {
     setOptionsOpen(false);
     setIsTransmitting(true);
-    fromHandwriting(listId, imgBlob, onDone);
+    fromHandwriting(listId, imgBlob, onDone, largestItemOnly);
   };
   const onDone = (_listId) => setIsTransmitting(false);
 
@@ -56,13 +58,20 @@ function App() {
         resetImgData={() => setImgBlob(null)}
       />
       <Overlay active={optionsOpen}>{feature}</Overlay>
-      <div className="add-button">
-        <button
-          className={`${imgBlob ? "" : "disabled"}`}
-          onClick={openOpentions}
-        >
-          Add Items
-        </button>
+      <div className="add-button-area">
+        <div className="add-button">
+          <button
+            className={`${imgBlob ? "" : "disabled"}`}
+            onClick={openOpentions}
+          >
+            Add Items
+          </button>
+        </div>
+        <Checkbox
+          labelId="largest-item-only-label"
+          handleOnChange={setLargestItemOnly}
+          labelText="largest item only"
+        />
       </div>
     </div>
   );
