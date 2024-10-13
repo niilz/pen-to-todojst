@@ -36,7 +36,7 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("fetch", (e) => {
   // Make sure that projects are not cached (because todoist-state might have changed)
-  if (e.request.url === "https://api.todoist.com/rest/v1/projects") {
+  if (e.request.url === "https://api.todoist.com/rest/v2/projects") {
     e.respondWith(fetch(e.request));
   }
   e.respondWith(
